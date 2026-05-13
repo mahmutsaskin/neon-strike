@@ -1,7 +1,6 @@
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=wavy&color=00f2fe&height=150&section=header&text=Neon%20Strike:%20ULTIMATE&fontSize=50&fontAlignY=40&desc=Tarayıcı%20Tabanlı%20Arcade%20Aksiyon%20Oyunu&descAlignY=60" alt="Neon Strike Banner">
+  <img src="https://capsule-render.vercel.app/api?type=wavy&color=00f2fe&height=150&section=header&text=Neon%20Strike:%20ULTIMATE&fontSize=50&fontAlignY=40&desc=Tarayici%20Tabanli%20Arcade%20Aksiyon%20Oyunu&descAlignY=60" alt="Neon Strike Banner">
 </div>
-
 ## 🎮 Proje Hakkında | About the Project
 
 **Neon Strike: ULTIMATE**, modern animasyonlar ve neon grafiklerle zenginleştirilmiş, sürükleyici bir tarayıcı tabanlı aksiyon oyunudur. Akıcı oynanışı ve retro arcade ruhunu modern bir arayüzle birleştirerek oyunculara keyifli bir deneyim sunar. Aynı zamanda bir **Chrome Eklentisi** olarak paketlenmeye uygun yapısıyla tasarlanmıştır!
