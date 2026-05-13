@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Neon Strike: ULTIMATE</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/title1.jpg">
+    <meta property="og:image" content="icons/kapak.jpg">
+    <script src="js/script.js" defer></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="pwa-manifest.json">
+</head>
+<body>
+
+    <div id="crtOverlay" class="crt-overlay"></div>
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="uiLayer">
+        <div class="hud-top">
+            <div class="score-container">
+                <div class="player-info" id="playerNameDisplay">GUEST</div>
+                <div class="diff-info" id="difficultyDisplay">ZORLUK: NORMAL</div>
+                <div class="score-label">SCORE</div>
+                <div class="score-value" id="scoreDisplay">0</div>
+                <div class="highscore-value" id="highScoreDisplay">HI: 0</div>
+                <div id="comboDisplay" class="combo-box">COMBO x1</div>
+            </div>
+            <div class="hud-right">
+                <div style="display: flex; justify-content: flex-end; align-items: center; gap: 15px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div id="healthText" class="health-text">%100</div>
+                        <div class="health-bar-container">
+                            <div id="healthFill" class="health-fill"></div>
+                        </div>
+                    </div>
+                    <button id="pauseBtn" class="icon-btn" title="Durdur (ESC)">II</button>
+                </div>
+                <div id="shieldIndicator" class="shield-indicator">SHIELD ACTIVE</div>
+            </div>
+        </div>
+        
+        <div class="mobile-controls" id="mobileControls">
+            <div class="joystick-zone" id="stickLeft">
+                <div class="joystick-knob" id="knobLeft"></div>
+            </div>
+            <div class="joystick-zone" id="stickRight">
+                <div class="joystick-knob" id="knobRight"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Başlangıç Ekranı -->
+    <div id="startScreen" class="screen active">
+        <div id="totalPointsUI" class="total-points-display">TOPLAM PUAN: 0</div>
+        
+        <h1 style="margin-bottom: 2vh;">NEON STRIKE</h1>
+        
+        <div class="start-menu-grid">
+            <!-- Sol Panel: İsim, Zorluk ve Tema -->
+            <div class="start-menu-panel">
+                <input type="text" id="nicknameInput" class="nickname-input" placeholder="NICKNAME GİRİN" maxlength="12" style="margin-top: 0;">
+                
+                <div class="diff-container">
+                    <button class="diff-btn" data-diff="easy">KOLAY</button>
+                    <button class="diff-btn active" data-diff="normal">NORMAL</button>
+                    <button class="diff-btn" data-diff="hard">ZOR</button>
+                </div>
+
+                <div class="theme-selection" style="margin-top: 25px;">
+                    <div class="ship-title">HARİTA TEMASI</div>
+                    <div class="theme-container" id="themeList"></div>
+                </div>
+            </div>
+
+            <!-- Sağ Panel: Gemi Seçimi -->
+            <div class="start-menu-panel">
+                <div class="ship-selection" style="margin-top: 0;">
+                    <div class="ship-title">GEMİ MODELİ SEÇİMİ</div>
+                    <div class="ship-list" id="shipList"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BAŞLAT VE MENÜ BUTONLARI MERKEZDE -->
+        <div style="display:flex; flex-direction: column; align-items: center; gap: 12px; width: 100%;">
+            <button id="startBtn" class="btn" style="font-size: 26px; padding: 15px 70px 18px;">BAŞLAT</button>
+            
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <button id="upgradeBtn" class="btn btn-upgrade" style="padding: 10px 20px; font-size: 14px;">🛠️ YÜKSELTMELER</button>
+                <button id="settingsBtn" class="btn btn-settings" style="padding: 10px 20px; font-size: 14px;">⚙️ AYARLAR</button>
+            </div>
+        </div>
+
+        <div class="controls-info" style="margin-top: 3vh;">
+            <div><span class="key">WASD</span> HAREKET</div>
+            <div><span class="key">MOUSE</span> NİŞAN/ATEŞ</div>
+            <div><span class="key">SPACE</span> DASH</div>
+            <div><span class="key">ESC</span> DURAKLAT</div>
+        </div>
+    </div>
+
+    <!-- Yükseltmeler Ekranı -->
+    <div id="upgradeScreen" class="screen">
+        <div id="totalPointsUI_Upgrades" class="total-points-display">TOPLAM PUAN: 0</div>
+        <h1 style="font-size: 50px;">TEKNOLOJİ AĞACI</h1>
+        <div class="upgrade-list" id="upgradeList">
+            <!-- JS -->
+        </div>
+        <button id="backFromUpgradeBtn" class="btn" style="margin-top: 40px;">ANA MENÜYE DÖN</button>
+    </div>
+
+    <!-- Ayarlar Ekranı -->
+    <div id="settingsScreen" class="screen">
+        <h1 style="font-size: 50px;">AYARLAR</h1>
+        <div class="settings-grid" id="settingsGrid">
+            <!-- JS ile doldurulacak -->
+        </div>
+        <button id="backFromSettingsBtn" class="btn" style="margin-top: 40px;">GERİ DÖN</button>
+    </div>
+
+    <!-- Oyun Bitti Ekranı -->
+    <div id="gameOverScreen" class="screen">
+        <h1 style="background: none; -webkit-text-fill-color: #ff0055; text-shadow: 0 0 40px #ff0055;">SYSTEM FAILURE</h1>
+        <h2 id="finalScore" style="color:#fff; font-weight:300; letter-spacing:2px; margin-top:20px;">SKOR: 0</h2>
+        <h3 id="newHighScoreLabel" style="color:#ffcc00; display:none; text-shadow: 0 0 10px #ffcc00;">YENİ REKOR!</h3>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 20px;">
+            <button id="gameOverRetryBtn" class="btn">TEKRAR OYNA</button>
+            <button id="gameOverMenuBtn" class="btn">ANA EKRAN</button>
+        </div>
+    </div>
+
+    <!-- Duraklatma Ekranı -->
+    <div id="pauseScreen" class="screen">
+        <h1 style="background: none; -webkit-text-fill-color: #00ffff; text-shadow: 0 0 40px #00ffff;">PAUSED</h1>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 20px;">
+            <button id="pauseRestartBtn" class="btn">BAŞTAN BAŞLA</button>
+            <button id="pauseContinueBtn" class="btn">DEVAM ET</button>
+            <button id="pauseSettingsBtn" class="btn">AYARLAR</button>
+            <button id="pauseMenuBtn" class="btn">ANA EKRAN</button>
+        </div>
+    </div>
+
+    
+</body>
+</html>
